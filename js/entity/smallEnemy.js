@@ -6,6 +6,7 @@ class smallEnemy extends Phaser.Sprite {
         this.body.collideWorldBounds = true;
         this.anchor.setTo(0.5, 0.5);
         this.body.drag.set(0.5);
+        this.enemyShipProperties = [[]];
         this._addEmitter();
         var randTurn = Math.random() * (2.0 - 1.5) + 1.5;
         var randSpeed = Math.random() * (140 - 120) + 120;
@@ -21,6 +22,7 @@ class smallEnemy extends Phaser.Sprite {
         this._nextFire = 0;
         this.alive = true;
         this.health = 100;
+        console.log(this.enemyShipProperties);
         
 
     }

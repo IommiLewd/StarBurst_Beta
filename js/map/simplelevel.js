@@ -5,31 +5,22 @@ class SimpleLevel extends Phaser.State {
     _loadLevel() {
         console.log('simplelevel.js: -> _LoadLevel fired');
         this.game.canvas.oncontextmenu = function (e) {
-                e.preventDefault();
-            }
-
-//        this.game.world.setBounds(0, 0, 1120, 840);
-//        this.background = game.add.tileSprite(0, 0, 1120, 840, 'background');
-        
-        
-        
+            e.preventDefault();
+        }
         this.game.world.setBounds(0, 0, 920, 640);
         this.background = game.add.tileSprite(0, 0, 920, 640, 'background');
         this.overlay = game.add.tileSprite(-300, -300, 1020, 740, 'Overlay');
     }
     _addPlayer(x, y) {
         //this.player = new Player(this.game, x, y, 'starships');
-        this.player = new Player(this.game, this.game.width/2, this.game.height/2, 'starships');
+        this.player = new Player(this.game, this.game.width / 2, this.game.height / 2, 'starships'/*, this.shipProperties*/);
+        this.player.shipProperties = this.shipProperties;
         this.game.camera.follow(this.player);
     }
 
-    _addEnemy() {
-        this.enemies = this.game.add.group();
-        this.enemy = new smallEnemy(this.game, 820, 100, 'player');
-        this.enemies.add(this.enemy);
-        this.enemy = new smallEnemy(this.game, 820, 300, 'player');
-        this.enemies.add(this.enemy);
-    }
+
+
+
 
 
 
@@ -59,7 +50,7 @@ class SimpleLevel extends Phaser.State {
         this.explosion.x = player.x;
         this.explosion.y = player.y;
         this.explosion.on = true;
-         this.game.camera.shake(0.06, 20);
+        this.game.camera.shake(0.06, 20);
         this.userInterface._updateDamage(10);
         this.game.time.events.add(Phaser.Timer.SECOND * 0.3, this._endExplosion, this);
 
@@ -68,12 +59,12 @@ class SimpleLevel extends Phaser.State {
             var deathTimer = Math.random() * (9 - 5) + 5;
             this.player._playerDeath(deathTimer);
             this.game.time.events.add(Phaser.Timer.SECOND * deathTimer, this._gameOver, this);
-            
+
         }
 
     }
-    
-    _gameOver(){
+
+    _gameOver() {
         this.userInterface._gameOverMenu();
     }
     _endExplosion() {
@@ -115,9 +106,9 @@ class SimpleLevel extends Phaser.State {
     _checkCollision() {
         this.game.physics.arcade.collide(this.player, this.enemies);
         this.game.physics.arcade.collide(this.player.bullets, this.enemies, this._enemy_hit, null, this);
-     if (this.enemies.length > 0) {
+        if (this.enemies.length > 0) {
             this.game.physics.arcade.collide(this.enemy.bullets, this.player, this._player_hit, null, this);
-     }
+        }
     }
     _aiUpdater() {
         var storedX = this.player.x;
@@ -127,6 +118,7 @@ class SimpleLevel extends Phaser.State {
             enemy.playerY = storedY;
         }, this)
     }
+
 
 
     _nextWave() {
@@ -139,6 +131,8 @@ class SimpleLevel extends Phaser.State {
                 var randomX = Math.random() * (900 - 20) + 20;
                 var randomY = Math.random() * (620 - 20) + 20;
                 this.enemy = new smallEnemy(this.game, randomX, randomY, 'player');
+                this.enemy.enemyShipProperties = this.shipProperties;
+                console.log(this.enemy.enemyShipProperties);
                 this.enemies.add(this.enemy);
             }
             this.roundTimerRunning = false;
@@ -151,7 +145,15 @@ class SimpleLevel extends Phaser.State {
     preload() {}
 
     create() {
+                this.shipProperties = [
+  //[0'name', 1'key', 2'speed', 3'handling', 4'health', 5'turret', 6'rateOfFire', ],
+  ['Badger', 0, 220, 3, 100, 0, 160],
+  ['Orsus', 1, 190, 3, 100, 0, 120],
+  ['Raven', 2, 320, 4, 100, 0, 180],
+  ['ShiftWind', 3, 220, 2.5, 100, 1, 200],
+  ['Brick', 4, 190, 2, 100, 1, 150]
 
+];
         this.game.stage.smoothed = false;
         this.enemies = this.game.add.group();
         this.game.physics.startSystem(Phaser.Physics.ARCADE);
@@ -159,10 +161,9 @@ class SimpleLevel extends Phaser.State {
         this.roundTimerRunning = false;
         this._loadLevel();
         this._addPlayer(100, 100);
-
         this._addExplosion();
         this._loadUi();
-
+       
 
     }
 
@@ -172,10 +173,10 @@ class SimpleLevel extends Phaser.State {
             this.overlay.x = this.player.x * 0.12 - 100;
             this.overlay.y = this.player.y * 0.12 - 100;
             this._checkCollision();
-          
+
             if (this.enemies.length <= 0 && this.roundTimerRunning === false) {
-                
-             this._nextWave();
+
+                this._nextWave();
             }
         }
     }
