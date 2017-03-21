@@ -2,6 +2,7 @@ class SimpleLevel extends Phaser.State {
     constructor() {
         super();
     }
+
     _loadLevel() {
         console.log('simplelevel.js: -> _LoadLevel fired');
         this.game.canvas.oncontextmenu = function (e) {
@@ -10,24 +11,21 @@ class SimpleLevel extends Phaser.State {
         this.game.world.setBounds(0, 0, 920, 640);
         this.background = game.add.tileSprite(0, 0, 920, 640, 'background');
         this.overlay = game.add.tileSprite(-300, -300, 1020, 740, 'Overlay');
+        this.overlay2 = game.add.tileSprite(-300, -300, 1020, 740, 'Overlay2');
     }
+
     _addPlayer(x, y) {
         //this.player = new Player(this.game, x, y, 'starships');
-        this.player = new Player(this.game, this.game.width / 2, this.game.height / 2, 'starships'/*, this.shipProperties*/);
+        this.player = new Player(this.game, this.game.width / 2, this.game.height / 2, 'starships', undefined, this.shipProperties);
         this.player.shipProperties = this.shipProperties;
         this.game.camera.follow(this.player);
     }
-
-
-
-
-
-
 
     _loadUi() {
         this.userInterface = new UserInterface(this.game);
 
     }
+
     _enemy_hit(bullet, enemy) {
 
         bullet.kill();
@@ -42,8 +40,8 @@ class SimpleLevel extends Phaser.State {
             this.userInterface._updateScore(20);
         }
     }
-    _player_hit(player, bullet) {
 
+    _player_hit(player, bullet) {
         bullet.kill();
         player.body.velocity.x = bullet.body.velocity.x / 16;
         player.body.velocity.y = bullet.body.velocity.y / 16;
@@ -59,14 +57,14 @@ class SimpleLevel extends Phaser.State {
             var deathTimer = Math.random() * (9 - 5) + 5;
             this.player._playerDeath(deathTimer);
             this.game.time.events.add(Phaser.Timer.SECOND * deathTimer, this._gameOver, this);
-
         }
-
     }
+
 
     _gameOver() {
         this.userInterface._gameOverMenu();
     }
+
     _endExplosion() {
         this.explosion.on = false;
     }
@@ -110,6 +108,7 @@ class SimpleLevel extends Phaser.State {
             this.game.physics.arcade.collide(this.enemy.bullets, this.player, this._player_hit, null, this);
         }
     }
+
     _aiUpdater() {
         var storedX = this.player.x;
         var storedY = this.player.y;
@@ -119,20 +118,20 @@ class SimpleLevel extends Phaser.State {
         }, this)
     }
 
-
-
     _nextWave() {
         this.enemies = this.game.add.group();
         this.roundTimerRunning = true;
         this.currentWave++;
+        if (this.currentWave % 3 === 0) {
+            this.enemyWaveMultiplier++;
+        }
         this.userInterface._waveComplete();
         this.game.time.events.add(Phaser.Timer.SECOND * 10, function () {
-            for (this.i = 0; this.i < this.currentWave; this.i++) {
+            for (this.i = 0; this.i < this.enemyWaveMultiplier; this.i++) {
                 var randomX = Math.random() * (900 - 20) + 20;
                 var randomY = Math.random() * (620 - 20) + 20;
-                this.enemy = new smallEnemy(this.game, randomX, randomY, 'player');
-                this.enemy.enemyShipProperties = this.shipProperties;
-                console.log(this.enemy.enemyShipProperties);
+                this.enemy = new smallEnemy(this.game, randomX, randomY, 'player', undefined, this.shipProperties, this._difficulty);
+
                 this.enemies.add(this.enemy);
             }
             this.roundTimerRunning = false;
@@ -145,7 +144,9 @@ class SimpleLevel extends Phaser.State {
     preload() {}
 
     create() {
-                this.shipProperties = [
+        this._difficulty = 2;
+        this.enemyWaveMultiplier = 1;
+        this.shipProperties = [
   //[0'name', 1'key', 2'speed', 3'handling', 4'health', 5'turret', 6'rateOfFire', ],
   ['Badger', 0, 220, 3, 100, 0, 160],
   ['Orsus', 1, 190, 3, 100, 0, 120],
@@ -163,15 +164,17 @@ class SimpleLevel extends Phaser.State {
         this._addPlayer(100, 100);
         this._addExplosion();
         this._loadUi();
-       
+
 
     }
 
     update() {
+        this._aiUpdater();
         if (this.player.alive) {
-            this._aiUpdater();
-            this.overlay.x = this.player.x * 0.12 - 100;
-            this.overlay.y = this.player.y * 0.12 - 100;
+            this.overlay.x = this.player.x * 0.16 - 100;
+            this.overlay.y = this.player.y * 0.16 - 100;
+            this.overlay2.x = this.player.x * 0.22 - 100;
+            this.overlay2.y = this.player.y * 0.22 - 100;
             this._checkCollision();
 
             if (this.enemies.length <= 0 && this.roundTimerRunning === false) {

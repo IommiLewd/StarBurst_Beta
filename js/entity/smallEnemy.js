@@ -1,28 +1,58 @@
 class smallEnemy extends Phaser.Sprite {
-    constructor(game, posx, posy, key) {
-        super(game, posx, posy, 'player', 0);
+    constructor(game, posx, posy, key, type, properties, difficulty) {
+        super(game, posx, posy, 'Starships', 0, type, properties, difficulty);
         game.add.existing(this);
         game.physics.arcade.enable(this);
         this.body.collideWorldBounds = true;
         this.anchor.setTo(0.5, 0.5);
         this.body.drag.set(0.5);
-        this.enemyShipProperties = [[]];
+        this.enemyShipProperties = properties;
+        
+        /*
+                        this.shipProperties = [
+  //[0'name', 1'key', 2'speed', 3'handling', 4'health', 5'turret', 6'rateOfFire', ],
+  ['Badger', 0, 220, 3, 100, 0, 160],
+  ['Orsus', 1, 190, 3, 100, 0, 120],
+  ['Raven', 2, 320, 4, 100, 0, 180],
+  ['ShiftWind', 3, 220, 2.5, 100, 1, 200],
+  ['Brick', 4, 190, 2, 100, 1, 150]
+
+];
+        */
+        
+        
+        
+        
+        
+        
+        
+           if (type === undefined) {
+            type = Math.random() * (5 - 0) + 0;
+            type = Math.floor(type);
+            console.log('Type is?!' + type);
+            console.log('Enemy ship spawned! type is: ' + type + ' - Name: ' + this.enemyShipProperties[type][0] + ' - Speed is: ' + this.enemyShipProperties[type][2]);
+        }
+        
+              this.animations.add('enemyAnim', [type]);
+        this.animations.play('enemyAnim');
+        this.difficulty = difficulty;
+        
+        
         this._addEmitter();
-        var randTurn = Math.random() * (2.0 - 1.5) + 1.5;
-        var randSpeed = Math.random() * (140 - 120) + 120;
-        this.SPEED = randSpeed; // missile speed pixels/second
-        this.TURN_RATE = randTurn; // turn rate in degrees/frame
+        this.SPEED = this.enemyShipProperties[type][2]/this.difficulty; // missile speed pixels/second
+        this.TURN_RATE = this.enemyShipProperties[type][3]/this.difficulty; // turn rate in degrees/frame
         this.playerX = 100;
         this.playerY = 100;
         this.body.bounce.set(0.4);
         this.body.setSize(this.width - 8, this.width - 8, 8, 8);
         this._addLaser();
         this._initBullets();
-        this.fireRate = 420;
+        this.fireRate = this.enemyShipProperties[type][6]*this.difficulty;
         this._nextFire = 0;
         this.alive = true;
-        this.health = 100;
+        this.health = this.enemyShipProperties[type][4]/this.difficulty;
         console.log(this.enemyShipProperties);
+        
         
 
     }

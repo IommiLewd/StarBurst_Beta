@@ -1,6 +1,6 @@
 class Player extends Phaser.Sprite {
-    constructor(game, posx, posy, key, type) {
-        super(game, posx, posy, 'Starships', 0);
+    constructor(game, posx, posy, key, type, properties) {
+        super(game, posx, posy, 'Starships', 0, properties);
         game.add.existing(this);
         game.physics.arcade.enable(this);
         this.body.collideWorldBounds = true;
@@ -10,15 +10,7 @@ class Player extends Phaser.Sprite {
 
 
 
-        this.shipProperties = [
-  //[0'name', 1'key', 2'speed', 3'handling', 4'health', 5'turret', 6'rateOfFire', ],
-  ['Badger', 0, 220, 3, 100, 0, 160],
-  ['Orsus', 1, 190, 3, 100, 0, 120],
-  ['Raven', 2, 320, 4, 100, 0, 180],
-  ['SwiftWind', 3, 220, 2.5, 100, 1, 200],
-  ['Brick', 4, 190, 2, 100, 1, 150]
-
-];
+        this.shipProperties = properties;
 
         if (type === undefined) {
             type = Math.random() * (5 - 0) + 0;
