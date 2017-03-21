@@ -7,9 +7,12 @@ class SimpleLevel extends Phaser.State {
         this.game.canvas.oncontextmenu = function (e) {
                 e.preventDefault();
             }
-            //        this.game.world.setBounds(0, 0, 840, 560);
-            //        this.tilesprite = game.add.tileSprite(0, 0, 840, 560, 'background');
 
+//        this.game.world.setBounds(0, 0, 1120, 840);
+//        this.background = game.add.tileSprite(0, 0, 1120, 840, 'background');
+        
+        
+        
         this.game.world.setBounds(0, 0, 920, 640);
         this.background = game.add.tileSprite(0, 0, 920, 640, 'background');
         this.overlay = game.add.tileSprite(-300, -300, 1020, 740, 'Overlay');
