@@ -10,16 +10,24 @@ class Player extends Phaser.Sprite {
 
 
 
-        var shipProperties = [
+        this.shipProperties = [
   //['name', 'key', 'speed', 'handling', 'health', 'turret', 'rateOfFire', ],
   ['Badger', 0, 220, 3, 100, 1, 210],
   ['Orsus', 1, 220, 3, 100, 1, 210],
-  ['Raven', 1, 220, 3, 100, 1, 210],
-  ['Bane', 1, 220, 3, 100, 1, 210],
-  ['Brick', 1, 220, 3, 100, 1, 210],
-  
+  ['Raven', 2, 220, 3, 100, 1, 210],
+  ['Bane', 3, 220, 3, 100, 1, 210],
+  ['Brick', 4, 220, 3, 100, 1, 210]
+
 ];
 
+        if (type === undefined) {
+            type = Math.random() * (5 - 0) + 0;
+            type = Math.floor(type);
+            console.log('Type is?!' + type);
+            console.log('type is: ' + type + ' - Name: ' + this.shipProperties[type][0] + ' - Speed is: ' + this.shipProperties[type][2]);
+        }
+        this.animations.add('anim', [type]);
+        this.animations.play('anim');
         this.fireRate = 210;
         this._nextFire = 0;
         this._addEmitter();
@@ -30,8 +38,8 @@ class Player extends Phaser.Sprite {
         this.alive = true;
         this._laserPointer();
         this._initBullets();
-        this.animations.add('Orsus', [3]);
-        this.animations.play('Orsus');
+//        this.animations.add('Orsus', [3]);
+//        this.animations.play('Orsus');
     }
 
     _addEmitter() {

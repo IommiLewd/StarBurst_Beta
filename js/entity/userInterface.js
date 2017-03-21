@@ -124,7 +124,7 @@ class UserInterface extends Phaser.Sprite {
 
     update() {
         if (this.regenerating > 0) {
-            console.log('regenerating is: ' + this.regenerating);
+ 
             this.regenerating -= 0.1;
         } else {
 

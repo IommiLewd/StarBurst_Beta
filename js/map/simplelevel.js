@@ -15,7 +15,8 @@ class SimpleLevel extends Phaser.State {
         this.overlay = game.add.tileSprite(-300, -300, 1020, 740, 'Overlay');
     }
     _addPlayer(x, y) {
-        this.player = new Player(this.game, x, y, 'starships');
+        //this.player = new Player(this.game, x, y, 'starships');
+        this.player = new Player(this.game, this.game.width/2, this.game.height/2, 'starships');
         this.game.camera.follow(this.player);
     }
 
@@ -111,9 +112,9 @@ class SimpleLevel extends Phaser.State {
     _checkCollision() {
         this.game.physics.arcade.collide(this.player, this.enemies);
         this.game.physics.arcade.collide(this.player.bullets, this.enemies, this._enemy_hit, null, this);
-        if (this.enemies.length > 0) {
+     if (this.enemies.length > 0) {
             this.game.physics.arcade.collide(this.enemy.bullets, this.player, this._player_hit, null, this);
-        }
+     }
     }
     _aiUpdater() {
         var storedX = this.player.x;
