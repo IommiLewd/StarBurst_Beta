@@ -52,7 +52,7 @@ class Player extends Phaser.Sprite {
         this.emitter.minParticleScale = 0.5;
         this.emitter.maxParticleScale = 8.9;
         this.emitter.setRotation(0, 360);
-        this.emitter.setAlpha(0.1, 0.8);
+         this.emitter.setAlpha(0.1, 0.8);
 
         this.emitter.setAlpha(1, 0.1, 250);
         this.emitter.forEach(function (particle) {
