@@ -31,6 +31,7 @@ class Preload extends Phaser.State {
         this.load.image('statusUi', 'img/Ui/statusUi.png');
         this.load.image('redPixel', 'img/Ui/redPixel.png');
         this.load.image('bluePixel', 'img/Ui/bluePixel.png');
+        this.load.image('orangePixel', 'img/Ui/orangePixel.png');
         this.load.image('gameOverMenu', 'img/Ui/gameOverMenu.png');
         this.load.image('WaveComplete', 'img/Ui/WaveComplete.png');
         //this.load.image('restartUp', 'img/Ui/restartGameUp.png');

@@ -16,16 +16,21 @@ class UserInterface extends Phaser.Sprite {
     }
 
     _waveComplete() {
+        if (this.currentWave === 1) {
+            this.roundText.setText('Wave Complete!');
+        }
         if (this.waveComplete === false) {
             this.waveComplete = true;
-            this.NextWaveText.alpha = 1.0;
-            this.NextWaveInText.alpha = 1.0;
-            this.TextTimer.alpha = 1.0;
+            this.waveCompleteImage.alpha = 1.0;
+            this.roundText.alpha = 1.0;
+            this.waveBar.alpha = 1.0;
+            this.waveBar.width = 1;
+            this.waveBarTween = this.game.add.tween(this.waveBar).to({ width: 106 }, 10000, null, true, 0);
         } else {
             this.waveComplete = false;
-            this.NextWaveText.alpha = 0.0;
-            this.NextWaveInText.alpha = 0.0;
-            this.TextTimer.alpha = 0.0;
+            this.waveCompleteImage.alpha = 0.0;
+            this.roundText.alpha = 0.0;
+            this.waveBar.alpha = 0.0;
         }
     }
 
@@ -62,6 +67,24 @@ class UserInterface extends Phaser.Sprite {
         this.healthBar = this.game.add.tileSprite(10, 8, 162, 10, 'redPixel');
         this.shieldBar = this.game.add.tileSprite(10, 24, 162, 10, 'bluePixel');
         this.statusUi = this.game.add.image(0, 0, 'statusUi');
+    this.waveBar = this.game.add.tileSprite(470, 44, 106, 6, 'orangePixel');
+        this.waveBar.alpha = 0.0;
+
+        this.waveCompleteImage = this.game.add.sprite(330, 12, 'WaveComplete');
+        this.waveCompleteImage.alpha = 0.0;
+
+
+        this.roundText = this.game.add.text(352, 20, 'Game Starting!', {
+            font: "16px Press Start 2P",
+            fill: '#ffffff'
+        });
+        this.roundText.alpha = 0.0;
+    
+
+        //Alph Ui Items
+
+
+
         this.scoreCounter = this.game.add.text(4, 628, 'Score: ' + this.score);
         this.scoreCounter.font = 'Press Start 2P';
         this.scoreCounter.fontSize = 8;
@@ -71,24 +94,6 @@ class UserInterface extends Phaser.Sprite {
             font: "8px Press Start 2P",
             fill: '#ffffff'
         });
-        this.NextWaveText = this.game.add.text(350, 80, 'Wave Complete!', {
-            font: "16px Press Start 2P",
-            fill: '#ffffff'
-        });
-        this.NextWaveInText = this.game.add.text(350, 100, 'Next Wave In: ', {
-            font: "8px Press Start 2P",
-            fill: '#ffffff'
-        });
-        this.TextTimer = this.game.add.text(555, 100, '10', {
-            font: "8px Press Start 2P",
-            fill: '#ffffff'
-        });
-
-
-        this.NextWaveText.alpha = 0.0;
-        this.NextWaveInText.alpha = 0.0;
-        this.TextTimer.alpha = 0.0;
-
     }
 
     _gameOverMenu() {
