@@ -30,6 +30,7 @@ class UserInterface extends Phaser.Sprite {
             }, 10000, null, true, 0);
         } else {
             this.waveComplete = false;
+            this.waveComplete = false;
             this.waveCompleteImage.alpha = 0.0;
             this.roundText.alpha = 0.0;
             this.waveBar.alpha = 0.0;
@@ -55,7 +56,8 @@ class UserInterface extends Phaser.Sprite {
         }
     }
     _updateScore(score) {
-
+        console.log('scoreUpdate fired');
+        this.score += score;
         this.scoreCounter.setText('Score: ' + this.score);
     }
 

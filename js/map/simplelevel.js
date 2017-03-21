@@ -44,7 +44,7 @@ class SimpleLevel extends Phaser.State {
         this.explosion.y = enemy.y;
         this.explosion.on = true;
         this.game.time.events.add(Phaser.Timer.SECOND * 0.3, this._endExplosion, this);
-        if (enemy.health < 16 && enemy.alive) {
+        if (enemy.health < 15 && enemy.alive) {
             this.userInterface._updateScore(20);
         }
     }
