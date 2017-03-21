@@ -11,12 +11,12 @@ class Player extends Phaser.Sprite {
 
 
         this.shipProperties = [
-  //['name', 'key', 'speed', 'handling', 'health', 'turret', 'rateOfFire', ],
-  ['Badger', 0, 220, 3, 100, 1, 210],
-  ['Orsus', 1, 220, 3, 100, 1, 210],
-  ['Raven', 2, 220, 3, 100, 1, 210],
-  ['Bane', 3, 220, 3, 100, 1, 210],
-  ['Brick', 4, 220, 3, 100, 1, 210]
+  //[0'name', 1'key', 2'speed', 3'handling', 4'health', 5'turret', 6'rateOfFire', ],
+  ['Badger', 0, 220, 3, 100, 0, 160],
+  ['Orsus', 1, 190, 3, 100, 0, 120],
+  ['Raven', 2, 320, 4, 100, 0, 180],
+  ['SwiftWind', 3, 220, 2.5, 100, 1, 200],
+  ['Brick', 4, 190, 2, 100, 1, 150]
 
 ];
 
@@ -28,12 +28,15 @@ class Player extends Phaser.Sprite {
         }
         this.animations.add('anim', [type]);
         this.animations.play('anim');
-        this.fireRate = 210;
+        this.fireRate = this.shipProperties[type][6];
         this._nextFire = 0;
         this._addEmitter();
+        if(this.shipProperties[type][5] === 1){
         this._addGun();
-        this.SPEED = 220; // missile speed pixels/second
-        this.TURN_RATE = 3; // turn rate in degrees/frame
+            this.turretEnabled = true;
+        } else {this.turretEnabled = false;}
+        this.SPEED = this.shipProperties[type][2];; // missile speed pixels/second
+        this.TURN_RATE = this.shipProperties[type][3];; // turn rate in degrees/frame
         this.body.bounce.set(0.4);
         this.alive = true;
         this._laserPointer();
@@ -89,7 +92,9 @@ class Player extends Phaser.Sprite {
 
     _playerDeath() {
         this._laserPointer.alpha = 0.0;
+        if(this.turretEnabled){
         this.gun.destroy();
+        }
         this.emitter.on = false;
     }
 
@@ -109,8 +114,14 @@ class Player extends Phaser.Sprite {
             this.bullet = this.bullets.getFirstDead();
             this.bullet.reset(this.x, this.y);
             this.game.camera.shake(0.004, 40);
+            if(this.turretEnabled){
             this.game.physics.arcade.velocityFromAngle(this._laserPointer.angle, 1100, this.bullet.body.velocity);
-            this.bullet.angle = this._laserPointer.angle;
+                this.bullet.angle = this._laserPointer.angle;
+            } else {
+                 this.game.physics.arcade.velocityFromAngle(this.angle, 1100, this.bullet.body.velocity); 
+                this.bullet.angle = this.angle;
+            }
+            
             this.bullet.bringToTop();
             this.bullets.add(this.bullet);
         }
@@ -136,9 +147,11 @@ class Player extends Phaser.Sprite {
             this._laserPointer.rotation = this.game.physics.arcade.angleToPointer(this);
             this._laserPointer.x = this.x;
             this._laserPointer.y = this.y;
+            if(this.turretEnabled){
             this.gun.x = this.x;
             this.gun.y = this.y;
             this.gun.rotation = this.game.physics.arcade.angleToPointer(this);
+            }
             var targetAngle = this.game.math.angleBetween(
                 this.x, this.y,
                 this.game.input.activePointer.x, this.game.input.activePointer.y
