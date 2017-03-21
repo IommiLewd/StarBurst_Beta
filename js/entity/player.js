@@ -1,12 +1,26 @@
 class Player extends Phaser.Sprite {
-    constructor(game, posx, posy, key) {
-        super(game, posx, posy, 'player', 0);
+    constructor(game, posx, posy, key, type) {
+        super(game, posx, posy, 'Starships', 0);
         game.add.existing(this);
         game.physics.arcade.enable(this);
         this.body.collideWorldBounds = true;
         this.anchor.setTo(0.5, 0.5);
         this.body.drag.set(10);
-         this.fireRate = 100;
+
+
+
+
+        var shipProperties = [
+  //['name', 'key', 'speed', 'handling', 'health', 'turret', 'rateOfFire', ],
+  ['Badger', 0, 220, 3, 100, 1, 210],
+  ['Orsus', 1, 220, 3, 100, 1, 210],
+  ['Raven', 1, 220, 3, 100, 1, 210],
+  ['Bane', 1, 220, 3, 100, 1, 210],
+  ['Brick', 1, 220, 3, 100, 1, 210],
+  
+];
+
+        this.fireRate = 210;
         this._nextFire = 0;
         this._addEmitter();
         this._addGun();
@@ -16,6 +30,8 @@ class Player extends Phaser.Sprite {
         this.alive = true;
         this._laserPointer();
         this._initBullets();
+        this.animations.add('Orsus', [3]);
+        this.animations.play('Orsus');
     }
 
     _addEmitter() {
@@ -28,6 +44,7 @@ class Player extends Phaser.Sprite {
         this.emitter.maxParticleScale = 8.9;
         this.emitter.setRotation(0, 360);
         //this.emitter.setAlpha(0.1, 0.8);
+
         this.emitter.setAlpha(1, 0.1, 250);
         this.emitter.forEach(function (particle) {
 
@@ -69,15 +86,15 @@ class Player extends Phaser.Sprite {
     }
 
     _laserPointer() {
-        console.log('pointer openened?!ass');
+
         this._laserPointer = this.game.add.tileSprite(0, 0, 1100, 0.5, 'pointer');
         this._laserPointer.anchor.setTo(0.0, 0.5);
         this._laserPointer.alpha = 0.5;
     }
-    
-    
-    
-        _fireWeapon() {
+
+
+
+    _fireWeapon() {
         this.bullet;
         if (this.game.time.now > this._nextFire) {
             this._nextFire = this.game.time.now + this.fireRate;
@@ -136,12 +153,12 @@ class Player extends Phaser.Sprite {
                 this.body.acceleration.set(0);
                 this.emitter.on = false;
             }
-            
-              if (this.game.input.activePointer.leftButton.isDown) {
+
+            if (this.game.input.activePointer.leftButton.isDown) {
                 this._fireWeapon();
             }
-            
-            
+
+
         } else {
             this.angle += 3;
 

@@ -27,9 +27,7 @@ class smallEnemy extends Phaser.Sprite {
     
     _damageTaken(damage) {
         this.health -= damage;
-        console.log('target is hit! Hp left is: ' + this.health);
         if (this.health < 0) {
-            console.log('target is dead!');
             this.alive = false;
             this.emitter.on = false;
             this._deathEmitter();

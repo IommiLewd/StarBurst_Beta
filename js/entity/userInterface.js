@@ -25,7 +25,9 @@ class UserInterface extends Phaser.Sprite {
             this.roundText.alpha = 1.0;
             this.waveBar.alpha = 1.0;
             this.waveBar.width = 1;
-            this.waveBarTween = this.game.add.tween(this.waveBar).to({ width: 106 }, 10000, null, true, 0);
+            this.waveBarTween = this.game.add.tween(this.waveBar).to({
+                width: 106
+            }, 10000, null, true, 0);
         } else {
             this.waveComplete = false;
             this.waveCompleteImage.alpha = 0.0;
@@ -53,7 +55,7 @@ class UserInterface extends Phaser.Sprite {
         }
     }
     _updateScore(score) {
-        this.score += score;
+
         this.scoreCounter.setText('Score: ' + this.score);
     }
 
@@ -63,11 +65,11 @@ class UserInterface extends Phaser.Sprite {
     }
 
     _loadElements() {
-        console.log('Load Elements Fired!!!!');
+
         this.healthBar = this.game.add.tileSprite(10, 8, 162, 10, 'redPixel');
         this.shieldBar = this.game.add.tileSprite(10, 24, 162, 10, 'bluePixel');
         this.statusUi = this.game.add.image(0, 0, 'statusUi');
-    this.waveBar = this.game.add.tileSprite(470, 44, 106, 6, 'orangePixel');
+        this.waveBar = this.game.add.tileSprite(470, 44, 106, 6, 'orangePixel');
         this.waveBar.alpha = 0.0;
 
         this.waveCompleteImage = this.game.add.sprite(330, 12, 'WaveComplete');
@@ -79,7 +81,7 @@ class UserInterface extends Phaser.Sprite {
             fill: '#ffffff'
         });
         this.roundText.alpha = 0.0;
-    
+
 
         //Alph Ui Items
 

@@ -15,7 +15,7 @@ class SimpleLevel extends Phaser.State {
         this.overlay = game.add.tileSprite(-300, -300, 1020, 740, 'Overlay');
     }
     _addPlayer(x, y) {
-        this.player = new Player(this.game, x, y, 'player');
+        this.player = new Player(this.game, x, y, 'starships');
         this.game.camera.follow(this.player);
     }
 
@@ -155,10 +155,10 @@ class SimpleLevel extends Phaser.State {
         this.roundTimerRunning = false;
         this._loadLevel();
         this._addPlayer(100, 100);
-        console.log('playerAdded!');
+
         this._addExplosion();
         this._loadUi();
-         console.log('pointer openened?!');
+
 
     }
 
