@@ -8,10 +8,10 @@ class Preload extends Phaser.State {
         this.load.image('titleBackground', 'img/titleMenu/titleBackground.png');
         this.load.image('titleMenuImage', 'img/titleMenu/titleMenuImage.png');
         this.load.spritesheet('startNewGame', 'img/titleMenu/newGameImage.png', 130, 18, 2);
-        //this.load.spritesheet('highScore', 'img/titleMenu/GOmenu.png', 164, 18, 2);
+        this.load.spritesheet('instructions', 'img/titleMenu/instructionsImage.png', 194, 18, 2);
         // Images :
         this.load.image('player', 'img/Badger.png');
-        this.load.spritesheet('Starships', 'img/starShipTilesheet.png', 36, 28, 5);
+        this.load.spritesheet('Starships', 'img/starshipTileSheet.png', 36, 28, 5);
         this.load.image('bullet', 'img/bullet2.png');
         this.load.image('gun', 'img/gun.png');
         
@@ -41,8 +41,7 @@ class Preload extends Phaser.State {
         this.load.image('bluePixel', 'img/Ui/bluePixel.png');
         this.load.image('orangePixel', 'img/Ui/orangePixel.png');
         this.load.image('gameOverMenu', 'img/Ui/gameOverMenu.png');
-        this.load.image('WaveComplete', 'img/Ui/WaveComplete.png');
-        //this.load.image('restartUp', 'img/Ui/restartGameUp.png');
+        this.load.image('WaveComplete', 'img/Ui/waveComplete.png');
         this.load.spritesheet('restartButton', 'img/Ui/GOrestart.png', 314, 46, 2);
         this.load.spritesheet('menuButton', 'img/Ui/GOmenu.png', 282, 46, 2);
     }

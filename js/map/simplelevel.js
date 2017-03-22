@@ -149,7 +149,7 @@ class SimpleLevel extends Phaser.State {
     preload() {}
 
     create() {
-        this._difficulty = 1;
+        this._difficulty = 2;
         this.enemyWaveMultiplier = 1;
         this.shipProperties = [
   //[0'name', 1'key', 2'speed', 3'handling', 4'health', 5'turret', 6'rateOfFire', ],

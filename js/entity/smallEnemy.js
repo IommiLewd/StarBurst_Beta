@@ -34,7 +34,13 @@ class smallEnemy extends Phaser.Sprite {
         this._initBullets();
         this.fireRate = this.enemyShipProperties[type][6] * this.difficulty;
         this._nextFire = 0;
-        this.alive = true;
+        this.alive = false;
+        
+        
+              this.game.time.events.add(Phaser.Timer.SECOND * 0.5, function () {
+                  if(this.health > 0){
+    this.alive = true; }
+            }, this);
         this.health = this.enemyShipProperties[type][4] / this.difficulty;
     }
 
