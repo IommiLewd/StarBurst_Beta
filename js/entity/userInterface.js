@@ -118,16 +118,20 @@ class UserInterface extends Phaser.Sprite {
 
         this.restartButton = this.game.add.button(306, 352, 'restartButton', function () {
 
-             this.game.world.removeAll();
+            this.game.world.removeAll();
             this.game.state.start("SimpleLevel", true, false);
         }, this, 2, 1, 0);
-        this.menuButton = this.game.add.button(336, 402, 'menuButton', function () {}, this, 2, 1, 0);
+        this.menuButton = this.game.add.button(336, 402, 'menuButton', function () {
+
+            this.game.world.removeAll();
+            this.game.state.start("MainMenu", true, false);
+        }, this, 2, 1, 0);
     }
 
 
     update() {
         if (this.regenerating > 0) {
- 
+
             this.regenerating -= 0.1;
         } else {
 

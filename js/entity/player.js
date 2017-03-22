@@ -29,7 +29,7 @@ class Player extends Phaser.Sprite {
         } else {this.turretEnabled = false;}
         this.SPEED = this.shipProperties[type][2];; // missile speed pixels/second
         this.TURN_RATE = this.shipProperties[type][3];; // turn rate in degrees/frame
-        this.body.bounce.set(0.4);
+        this.body.bounce.set(0.5);
         this.alive = true;
         this._laserPointer();
         this._initBullets();

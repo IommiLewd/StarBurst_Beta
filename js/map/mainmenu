@@ -68,6 +68,7 @@ class SimpleLevel extends Phaser.State {
         }
     }
 
+
     _gameOver() {
         this.userInterface._gameOverMenu();
     }
@@ -75,6 +76,8 @@ class SimpleLevel extends Phaser.State {
     _endExplosion() {
         this.explosion.on = false;
     }
+
+
 
     _addExplosion() {
         this.explosion = this.game.add.emitter(0, 0, 200);
@@ -135,7 +138,7 @@ class SimpleLevel extends Phaser.State {
             for (this.i = 0; this.i < this.enemyWaveMultiplier; this.i++) {
                 var randomX = Math.random() * (900 - 20) + 20;
                 var randomY = Math.random() * (620 - 20) + 20;
-                this.enemy = new smallEnemy(this.game, randomX, randomY, 'player', /*undefined*/ undefined, this.shipProperties, this._difficulty);
+                this.enemy = new smallEnemy(this.game, randomX, randomY, 'player', /*undefined*/ 3, this.shipProperties, this._difficulty);
 
                 this.enemies.add(this.enemy);
             }
