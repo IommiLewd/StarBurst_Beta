@@ -144,15 +144,15 @@ class SimpleLevel extends Phaser.State {
     preload() {}
 
     create() {
-        this._difficulty = 2;
+        this._difficulty = 1;
         this.enemyWaveMultiplier = 1;
         this.shipProperties = [
   //[0'name', 1'key', 2'speed', 3'handling', 4'health', 5'turret', 6'rateOfFire', ],
-  ['Badger', 0, 220, 3, 100, 0, 160],
-  ['Orsus', 1, 190, 3, 100, 0, 120],
-  ['Raven', 2, 320, 4, 100, 0, 180],
-  ['ShiftWind', 3, 220, 2.5, 100, 1, 200],
-  ['Brick', 4, 190, 2, 100, 1, 150]
+  ['Badger', 0, 200, 3, 160, 0, 180],
+  ['Orsus', 1, 160, 3, 100, 0, 120],
+  ['Raven', 2, 280, 4, 140, 0, 200],
+  ['ShiftWind', 3, 220, 2.5, 120, 1, 220],
+  ['Brick', 4, 140, 2, 180, 1, 200]
 
 ];
         this.game.stage.smoothed = false;

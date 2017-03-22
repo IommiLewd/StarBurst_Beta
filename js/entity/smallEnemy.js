@@ -29,7 +29,7 @@ class smallEnemy extends Phaser.Sprite {
            if (type === undefined) {
             type = Math.random() * (5 - 0) + 0;
             type = Math.floor(type);
-            console.log('Type is?!' + type);
+
             console.log('Enemy ship spawned! type is: ' + type + ' - Name: ' + this.enemyShipProperties[type][0] + ' - Speed is: ' + this.enemyShipProperties[type][2]);
         }
         
@@ -51,7 +51,7 @@ class smallEnemy extends Phaser.Sprite {
         this._nextFire = 0;
         this.alive = true;
         this.health = this.enemyShipProperties[type][4]/this.difficulty;
-        console.log(this.enemyShipProperties);
+
         
         
 
@@ -63,7 +63,12 @@ class smallEnemy extends Phaser.Sprite {
             this.alive = false;
             this.emitter.on = false;
             this._deathEmitter();
-            this.game.time.events.add(Phaser.Timer.SECOND * 4, function(){this.destroy();}, this);
+            this.game.time.events.add(Phaser.Timer.SECOND * 4, function(){
+                this._targetReticule.destroy();
+                
+                this.destroy();
+                
+            }, this);
             
         }
     }
@@ -98,7 +103,8 @@ class smallEnemy extends Phaser.Sprite {
     _addLaser() {
         this._targetReticule = this.game.add.tileSprite(0, 0, 800, 0.5, 'redpointer');
         this._targetReticule.anchor.setTo(0.0, 0.5);
-        this._targetReticule.alpha = 0.0;
+        //this._targetReticule.alpha = 1.0;
+        this._targetReticule.visible = false;
     }
     _addEmitter() {
         this.emitter = this.game.add.emitter(0, 0, 200);
@@ -188,6 +194,7 @@ class smallEnemy extends Phaser.Sprite {
 
         } else {
             this.angle += 2;
+          
         }
 
     }

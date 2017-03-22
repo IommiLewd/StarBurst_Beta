@@ -50,13 +50,13 @@ class UserInterface extends Phaser.Sprite {
         this.healthBar.width = this.health / 100 * 162;
         this.shieldBar.width = this.shield / 50 * 162;
         if (this.health < 0) {
-            console.log('you are dead!!! Bang!!');
+
             this.healthBar.alpha = 0.0;
             this.shieldBar.alpha = 0.0;
         }
     }
     _updateScore(score) {
-        console.log('scoreUpdate fired');
+
         this.score += score;
         this.scoreCounter.setText('Score: ' + this.score);
     }
@@ -115,9 +115,9 @@ class UserInterface extends Phaser.Sprite {
         });
         this.endWave.anchor.setTo(0.5);
         this.endScore.anchor.setTo(0.5);
-        //this.restartButton = this.game.add.sprite(306, 352, 'restartUp');
+
         this.restartButton = this.game.add.button(306, 352, 'restartButton', function () {
-            //game.state.start(game.state.current);
+
              this.game.world.removeAll();
             this.game.state.start("SimpleLevel", true, false);
         }, this, 2, 1, 0);

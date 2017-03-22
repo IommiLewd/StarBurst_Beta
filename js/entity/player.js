@@ -15,7 +15,7 @@ class Player extends Phaser.Sprite {
         if (type === undefined) {
             type = Math.random() * (5 - 0) + 0;
             type = Math.floor(type);
-            console.log('Type is?!' + type);
+ 
             console.log('type is: ' + type + ' - Name: ' + this.shipProperties[type][0] + ' - Speed is: ' + this.shipProperties[type][2]);
         }
         this.animations.add('anim', [type]);
@@ -73,6 +73,35 @@ class Player extends Phaser.Sprite {
         this.emitter.x = -6;
     }
 
+    
+          _deathEmitter() {
+        this.deathEmitter = this.game.add.emitter(0, 0, 0);
+            this.addChild(this.deathEmitter);
+        this.deathEmitter.width = 0;
+        this.deathEmitter.makeParticles('flame');
+       // this.deathEmitter.minParticleSpeed.setTo(-100, -100);
+       // this.deathEmitter.maxParticleSpeed.setTo(100, 100);
+        this.deathEmitter.setRotation(0, 190);
+        this.deathEmitter.setAlpha(0.1, 1);
+        this.deathEmitter.forEach(function (particle) {
+            particle.body.allowGravity = false;
+//            particle.animations.add('emit1', [0]);
+//            particle.animations.add('emit2', [1]);
+//            particle.animations.add('emit3', [2]);
+//            var randSpeed = Math.random() * (4 - 0) + 0;
+//            var randSpeed = Math.floor(randSpeed);
+//            if (randSpeed === 1) {
+//                particle.animations.play('emit1', 30, true);
+//            } else if (randSpeed === 2) {
+//                particle.animations.play('emit2', 30, true);
+//            } else {
+//                particle.animations.play('emit3', 30, true);
+        }, this);
+        this.deathEmitter.setScale(0.3, 2.5, 0.3, 2.5, 400);
+        //this.deathEmitter.start(false, 800, 100);
+        this.deathEmitter.start(false, 400, 100);
+        this.deathEmitter.on = true;
+    }
 
 
     _addGun() {
@@ -81,6 +110,7 @@ class Player extends Phaser.Sprite {
     }
 
     _playerDeath() {
+        this._deathEmitter();
         this._laserPointer.alpha = 0.0;
         if(this.turretEnabled){
         this.gun.destroy();
