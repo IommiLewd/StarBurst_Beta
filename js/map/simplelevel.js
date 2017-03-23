@@ -1,6 +1,6 @@
 class SimpleLevel extends Phaser.State {
-    constructor() {
-        super();
+    constructor(selectedShip) {
+        super(selectedShip);
     }
 
     _loadLevel() {
@@ -16,7 +16,7 @@ class SimpleLevel extends Phaser.State {
 
     _addPlayer(x, y) {
         //this.player = new Player(this.game, x, y, 'starships');
-        this.player = new Player(this.game, this.game.width / 2, this.game.height / 2, 'starships', undefined, this.shipProperties);
+        this.player = new Player(this.game, this.game.width / 2, this.game.height / 2, 'starships', this.finalShipSelection, this.shipProperties);
         this.player.shipProperties = this.shipProperties;
         this.game.camera.follow(this.player);
     }
@@ -144,11 +144,11 @@ class SimpleLevel extends Phaser.State {
             this.userInterface._updateWave();
         }, this);
     }
-
-    _scoreUpdate() {}
     preload() {}
 
     create() {
+      //  this.finalShipSelection = selectedShip;
+       // this.selectedShip = selectedShip;
         this._difficulty = 2;
         this.enemyWaveMultiplier = 1;
         this.shipProperties = [
@@ -183,7 +183,6 @@ class SimpleLevel extends Phaser.State {
             this.overlay2.x = this.player.x * 0.22 - 100;
             this.overlay2.y = this.player.y * 0.22 - 100;
             this._checkCollision();
-            console.log(this.enemies.length + '   ' + this.roundTimerRunning);
 
             if (this.enemies.length <= 0 && this.roundTimerRunning === false) {
 

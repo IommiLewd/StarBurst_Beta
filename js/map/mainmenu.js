@@ -67,7 +67,19 @@ class MainMenu extends Phaser.State {
         this.shipDescription.visible = false;
         this.shipDescription.anchor.setTo(0.5);
         
-        this.beginButton = this.game.add.button(340, 540, 'begin', function () {}, this, 1, 2, 0);
+        this.beginButton = this.game.add.button(340, 540, 'begin', function () {
+            
+            /*this.game.state.states['SimpleLevel'].finalShipSelection = 2;*/
+            
+            
+            
+            this.game.state.start('SimpleLevel', true, false, this.selectedShip);
+                                                                               
+                                                                               
+                                                                               
+                                                                               
+                                                                               
+                                                                               }, this, 1, 2, 0);
        
 
 

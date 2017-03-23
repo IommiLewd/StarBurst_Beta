@@ -7,15 +7,10 @@ class Player extends Phaser.Sprite {
         this.anchor.setTo(0.5, 0.5);
         this.body.drag.set(10);
 
-
-
-
         this.shipProperties = properties;
-
         if (type === undefined) {
             type = Math.random() * (5 - 0) + 0;
             type = Math.floor(type);
- 
             console.log('type is: ' + type + ' - Name: ' + this.shipProperties[type][0] + ' - Speed is: ' + this.shipProperties[type][2]);
         }
         this.animations.add('anim', [type]);
