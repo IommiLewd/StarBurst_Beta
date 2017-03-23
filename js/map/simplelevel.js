@@ -160,6 +160,8 @@ class SimpleLevel extends Phaser.State {
       ['Brick', 4, 160, 2, 180, 1, 250]
 
 ];
+        
+        
         this.game.stage.smoothed = false;
         this.enemies = this.game.add.group();
         this.game.physics.startSystem(Phaser.Physics.ARCADE);
@@ -181,6 +183,7 @@ class SimpleLevel extends Phaser.State {
             this.overlay2.x = this.player.x * 0.22 - 100;
             this.overlay2.y = this.player.y * 0.22 - 100;
             this._checkCollision();
+            console.log(this.enemies.length + '   ' + this.roundTimerRunning);
 
             if (this.enemies.length <= 0 && this.roundTimerRunning === false) {
 

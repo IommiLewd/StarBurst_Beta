@@ -1,16 +1,25 @@
 class Preload extends Phaser.State {
     preload() {
         //Load Webfont
-        this.load.script('webfont', '//ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js');
+        //this.load.script('webfont', '//ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js');
         
         
         //TitleMenu items
+        this.load.image('gameSettings', 'img/titleMenu/gameSettings.png');
+        this.load.spritesheet('UiShips', 'img/titleMenu/menuTileSheet.png', 36, 28, 5);
         this.load.image('titleBackground', 'img/titleMenu/titleBackground.png');
         this.load.image('titleMenuImage', 'img/titleMenu/titleMenuImage.png');
         this.load.spritesheet('startNewGame', 'img/titleMenu/newGameImage.png', 130, 18, 2);
         this.load.spritesheet('instructions', 'img/titleMenu/instructionsImage.png', 194, 18, 2);
+        this.load.spritesheet('begin', 'img/titleMenu/fight.png', 238, 40, 2);
+        
+        this.load.spritesheet('easyDifficulty', 'img/titleMenu/easyDifficulty.png', 66, 18, 2);
+        this.load.spritesheet('normalDifficulty', 'img/titleMenu/normalDifficulty.png', 98, 18, 2);
+        this.load.spritesheet('hardDifficulty', 'img/titleMenu/hardDifficulty.png', 66, 18, 2);
+        this.load.spritesheet('checkButton', 'img/titleMenu/checkButton.png', 56, 56, 2);
+        
         // Images :
-        this.load.image('player', 'img/Badger.png');
+        //this.load.image('player', 'img/Badger.png');
         this.load.spritesheet('Starships', 'img/starshipTileSheet.png', 36, 28, 5);
         this.load.image('bullet', 'img/bullet2.png');
         this.load.image('gun', 'img/gun.png');
@@ -36,6 +45,7 @@ class Preload extends Phaser.State {
          this.load.image('redpointer', 'img/redlaserPointer.png');
         
         //Ui stuff
+        
         this.load.image('statusUi', 'img/Ui/statusUi.png');
         this.load.image('redPixel', 'img/Ui/redPixel.png');
         this.load.image('bluePixel', 'img/Ui/bluePixel.png');
