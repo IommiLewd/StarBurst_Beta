@@ -43,8 +43,6 @@ class Player extends Phaser.Sprite {
 
         this.emitter.setAlpha(1, 0.1, 250);
         this.emitter.forEach(function (particle) {
-
-            //Yay, totally works and is cool. Can i reduce this to 3lines ov code?
             particle.animations.add('emit1', [0]);
             particle.animations.add('emit2', [1]);
             particle.animations.add('emit3', [2]);
@@ -74,23 +72,10 @@ class Player extends Phaser.Sprite {
             this.addChild(this.deathEmitter);
         this.deathEmitter.width = 0;
         this.deathEmitter.makeParticles('flame');
-       // this.deathEmitter.minParticleSpeed.setTo(-100, -100);
-       // this.deathEmitter.maxParticleSpeed.setTo(100, 100);
         this.deathEmitter.setRotation(0, 190);
         this.deathEmitter.setAlpha(0.1, 1);
         this.deathEmitter.forEach(function (particle) {
             particle.body.allowGravity = false;
-//            particle.animations.add('emit1', [0]);
-//            particle.animations.add('emit2', [1]);
-//            particle.animations.add('emit3', [2]);
-//            var randSpeed = Math.random() * (4 - 0) + 0;
-//            var randSpeed = Math.floor(randSpeed);
-//            if (randSpeed === 1) {
-//                particle.animations.play('emit1', 30, true);
-//            } else if (randSpeed === 2) {
-//                particle.animations.play('emit2', 30, true);
-//            } else {
-//                particle.animations.play('emit3', 30, true);
         }, this);
         this.deathEmitter.setScale(0.3, 2.5, 0.3, 2.5, 400);
         //this.deathEmitter.start(false, 800, 100);

@@ -22,7 +22,6 @@ class smallEnemy extends Phaser.Sprite {
         } else {
             this.turretEnabled = false;
         }
-
         this._addEmitter();
         this.SPEED = this.enemyShipProperties[type][2] / this.difficulty; // missile speed pixels/second
         this.TURN_RATE = this.enemyShipProperties[type][3] / this.difficulty; // turn rate in degrees/frame
@@ -35,12 +34,11 @@ class smallEnemy extends Phaser.Sprite {
         this.fireRate = this.enemyShipProperties[type][6] * this.difficulty;
         this._nextFire = 0;
         this.alive = false;
-        
-        
-              this.game.time.events.add(Phaser.Timer.SECOND * 0.5, function () {
-                  if(this.health > 0){
-    this.alive = true; }
-            }, this);
+        this.game.time.events.add(Phaser.Timer.SECOND * 0.5, function () {
+            if (this.health > 0) {
+                this.alive = true;
+            }
+        }, this);
         this.health = this.enemyShipProperties[type][4] / this.difficulty;
     }
 
@@ -69,7 +67,6 @@ class smallEnemy extends Phaser.Sprite {
         this.bullet.reset(this.x, this.y);
         if (this.turretEnabled) {
             this.game.physics.arcade.velocityFromAngle(this._targetReticule.angle, 900, this.bullet.body.velocity);
-            //this.bullet.angle = this._targetReticule.angle;
             this.bullet.rotation = this._targetReticule.rotation;
         } else {
             this.game.physics.arcade.velocityFromAngle(this.angle, 900, this.bullet.body.velocity);
@@ -98,7 +95,6 @@ class smallEnemy extends Phaser.Sprite {
     _addLaser() {
         this._targetReticule = this.game.add.tileSprite(0, 0, 800, 0.5, 'redpointer');
         this._targetReticule.anchor.setTo(0.0, 0.5);
-        //this._targetReticule.alpha = 1.0;
         this._targetReticule.visible = false;
     }
     _addEmitter() {
@@ -132,20 +128,8 @@ class smallEnemy extends Phaser.Sprite {
         this.deathEmitter.setAlpha(0.1, 1);
         this.deathEmitter.forEach(function (particle) {
             particle.body.allowGravity = false;
-            //            particle.animations.add('emit1', [0]);
-            //            particle.animations.add('emit2', [1]);
-            //            particle.animations.add('emit3', [2]);
-            //            var randSpeed = Math.random() * (4 - 0) + 0;
-            //            var randSpeed = Math.floor(randSpeed);
-            //            if (randSpeed === 1) {
-            //                particle.animations.play('emit1', 30, true);
-            //            } else if (randSpeed === 2) {
-            //                particle.animations.play('emit2', 30, true);
-            //            } else {
-            //                particle.animations.play('emit3', 30, true);
         }, this);
         this.deathEmitter.setScale(0.3, 2.5, 0.3, 2.5, 400);
-        //this.deathEmitter.start(false, 800, 100);
         this.deathEmitter.start(false, 400, 200);
         this.deathEmitter.on = true;
     }
@@ -158,7 +142,7 @@ class smallEnemy extends Phaser.Sprite {
             this._targetReticule.rotation = storedAngle;
             var storedShipAngle = Math.abs(this.rotation);
             var storedPointerAngle = Math.abs(this._targetReticule.rotation);
-            if (/*storedPointerAngle < storedShipAngle + 0.2 && storedPointerAngle > storedShipAngle - 0.2 && */this.game.time.now > this._nextFire) {
+            if (this.game.time.now > this._nextFire) {
                 this._fireWeapon();
             }
 

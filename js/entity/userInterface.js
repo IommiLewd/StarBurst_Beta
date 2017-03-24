@@ -12,7 +12,6 @@ class UserInterface extends Phaser.Sprite {
         this.health = 100;
         this.shield = 50;
         this.regenerating = 0;
-        //this._gameOverMenu();
     }
 
     _waveComplete() {
@@ -73,22 +72,13 @@ class UserInterface extends Phaser.Sprite {
         this.statusUi = this.game.add.image(0, 0, 'statusUi');
         this.waveBar = this.game.add.tileSprite(470, 44, 106, 6, 'orangePixel');
         this.waveBar.alpha = 0.0;
-
         this.waveCompleteImage = this.game.add.sprite(330, 12, 'WaveComplete');
         this.waveCompleteImage.alpha = 0.0;
-
-
         this.roundText = this.game.add.text(352, 20, 'Game Starting!', {
             font: "16px Press Start 2P",
             fill: '#ffffff'
         });
         this.roundText.alpha = 0.0;
-
-
-        //Alph Ui Items
-
-
-
         this.scoreCounter = this.game.add.text(4, 628, 'Score: ' + this.score);
         this.scoreCounter.font = 'Press Start 2P';
         this.scoreCounter.fontSize = 8;
@@ -101,7 +91,6 @@ class UserInterface extends Phaser.Sprite {
     }
 
     _gameOverMenu() {
-
         this.gameOverBackground = this.game.add.sprite(300, 80, 'gameOverMenu');
         this.endScore = this.game.add.text(474, 220, this.score, {
             font: "24px Press Start 2P",
@@ -138,18 +127,8 @@ class UserInterface extends Phaser.Sprite {
             if (this.shield < 50) {
                 this.shield += 0.5;
                 this.shieldBar.width = this.shield / 50 * 162;
-
             }
         }
 
-        //                if(this.regenerating && this.shield < 50){
-        //            this.shield += 0.5;
-        //            this.shieldBar.width = this.shield / 50 * 162;
-        //        }
-
-        //        if(this.regenerating && this.shield < 50){
-        //            this.shield += 0.5;
-        //            this.shieldBar.width = this.shield / 50 * 162;
-        //        }
     }
 }

@@ -48,14 +48,6 @@ class SimpleLevel extends Phaser.State {
         bullet.kill();
         player.body.velocity.x = bullet.body.velocity.x / 8;
         player.body.velocity.y = bullet.body.velocity.y / 8;
-//        
-//            player.body.velocity.x = 10;
-//        player.body.velocity.y = 10;
-
-//        player.body.velocity.x - bullet.body.velocity.x/10;
-//        player.body.velocity.y - bullet.body.velocity.y/10;
-
-        
         this.explosion.x = player.x;
         this.explosion.y = player.y;
         this.explosion.on = true;
@@ -101,7 +93,6 @@ class SimpleLevel extends Phaser.State {
             } else {
                 particle.animations.play('emit3', 30, true);
             }
-
         }, this);
         this.explosion.setScale(0.3, 1, 0.3, 1, 160);
         this.explosion.start(false, 160, 1);
@@ -157,21 +148,15 @@ class SimpleLevel extends Phaser.State {
     preload() {}
 
     create() {
-      //  this.finalShipSelection = selectedShip;
-       // this.selectedShip = selectedShip;
         this._difficulty = 2;
         this.enemyWaveMultiplier = 1;
         this.shipProperties = [
-  //[0'name', 1'key', 2'speed', 3'handling', 4'health', 5'turret', 6'rateOfFire', ],
       ['Badger', 0, 200, 2.5, 160, 0, 160],
       ['Orsus', 1, 180, 2.5, 100, 0, 120],
       ['Raven', 2, 280, 4, 140, 0, 180],
   ['ShiftWind', 3, 220, 2.2, 120, 1, 400],
       ['Brick', 4, 160, 2, 180, 1, 250]
-
 ];
-        
-        
         this.game.stage.smoothed = false;
         this.enemies = this.game.add.group();
         this.game.physics.startSystem(Phaser.Physics.ARCADE);
@@ -181,9 +166,6 @@ class SimpleLevel extends Phaser.State {
         this._addPlayer(100, 100);
         this._addExplosion();
         this._loadUi();
-   
-
-
     }
 
     update() {

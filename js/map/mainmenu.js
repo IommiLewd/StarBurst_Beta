@@ -152,7 +152,6 @@ class MainMenu extends Phaser.State {
         if (this.game.input.activePointer.leftButton.isDown && this.startTextAlive) {
 
             this._loadMainMenu();
-            //this._loadGameOptions();
         }
 
 
