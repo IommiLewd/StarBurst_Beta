@@ -1,9 +1,11 @@
 class SimpleLevel extends Phaser.State {
     constructor(selectedShip) {
         super(selectedShip);
+     
     }
 
     _loadLevel() {
+        console.log(this.selectedShipFinal);
         console.log('simplelevel.js: -> _LoadLevel fired');
         this.game.canvas.oncontextmenu = function (e) {
             e.preventDefault();
@@ -12,11 +14,12 @@ class SimpleLevel extends Phaser.State {
         this.background = game.add.tileSprite(0, 0, 920, 640, 'background');
         this.overlay = game.add.tileSprite(-300, -300, 1020, 740, 'Overlay');
         this.overlay2 = game.add.tileSprite(-300, -300, 1020, 740, 'Overlay2');
+    
     }
 
     _addPlayer(x, y) {
         //this.player = new Player(this.game, x, y, 'starships');
-        this.player = new Player(this.game, this.game.width / 2, this.game.height / 2, 'starships', this.finalShipSelection, this.shipProperties);
+        this.player = new Player(this.game, this.game.width / 2, this.game.height / 2, 'starships', this.shipType, this.shipProperties);
         this.player.shipProperties = this.shipProperties;
         this.game.camera.follow(this.player);
     }
@@ -144,6 +147,13 @@ class SimpleLevel extends Phaser.State {
             this.userInterface._updateWave();
         }, this);
     }
+  
+    init(selectedShip) {
+        console.log('selected ship is: ' + selectedShip);
+    this.shipType = selectedShip;
+        console.log('shipType is: ' + this.shipType);
+    
+    }
     preload() {}
 
     create() {
@@ -171,6 +181,7 @@ class SimpleLevel extends Phaser.State {
         this._addPlayer(100, 100);
         this._addExplosion();
         this._loadUi();
+   
 
 
     }

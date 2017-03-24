@@ -48,39 +48,30 @@ class MainMenu extends Phaser.State {
             this.shipPreview = this.game.add.sprite(this.shipPlacementX, 284, 'UiShips');
             this.shipPreview.frame = i;
         }
-        
-        
-        
+
+
+
         this.shipName = this.game.add.text(460, 360, this.nameArray[this.selectedShip], {
             font: "16px Press Start 2P",
             fill: '#ffffff',
             boundsAlignH: "center"
         });
         this.shipName.anchor.setTo(0.5);
-        
-        
-            this.shipDescription = this.game.add.text(460, 420, this.descriptionArray[this.selectedShip], {
+
+
+        this.shipDescription = this.game.add.text(460, 420, this.descriptionArray[this.selectedShip], {
             font: "12px Press Start 2P",
             fill: '#ffffff',
             boundsAlignH: "center"
         });
         this.shipDescription.visible = false;
         this.shipDescription.anchor.setTo(0.5);
-        
+
         this.beginButton = this.game.add.button(340, 540, 'begin', function () {
-            
-            /*this.game.state.states['SimpleLevel'].finalShipSelection = 2;*/
-            
-            
-            
+            //this.game.state.states['SimpleLevel'].finalShipSelection = 2;
             this.game.state.start('SimpleLevel', true, false, this.selectedShip);
-                                                                               
-                                                                               
-                                                                               
-                                                                               
-                                                                               
-                                                                               }, this, 1, 2, 0);
-       
+        }, this, 1, 2, 0);
+
 
 
     }
@@ -91,7 +82,7 @@ class MainMenu extends Phaser.State {
         this.selectedShip = input;
         this.shipName.setText(this.nameArray[input]);
         this.shipDescription.setText(this.descriptionArray[input]);
-        
+
     }
 
     _loadMainMenu() {
@@ -118,10 +109,10 @@ class MainMenu extends Phaser.State {
         this.versionText.anchor.setTo(0.5);
         this.instructions = this.game.add.button(460, 374, 'instructions', function () {}, this, 1, 2, 0);
         this.instructions.anchor.setTo(0.5);
-        
-    
-        
-        
+
+
+
+
     }
 
     _addTitleText() {
