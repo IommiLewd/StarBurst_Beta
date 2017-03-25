@@ -108,7 +108,7 @@ class MainMenu extends Phaser.State {
             boundsAlignW: "right"
         });
         this.copyright.anchor.setTo(0.5, 0.0);
-        this.versionText = this.game.add.text(460, 510, '(Mouse strongly recommended)', {
+        this.versionText = this.game.add.text(460, 490, '(Mouse strongly recommended)', {
             font: "8px Press Start 2P",
             fill: '#ffffff',
             boundsAlignH: "center"

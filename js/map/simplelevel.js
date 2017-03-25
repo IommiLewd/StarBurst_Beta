@@ -140,6 +140,9 @@ class SimpleLevel extends Phaser.State {
   
     init(selectedShip, difficulty) {
     this.shipType = selectedShip;
+        if(this.shipType === undefined){
+            this.shipType = 1;
+        }
     this._difficulty = difficulty;
     }
     preload() {}

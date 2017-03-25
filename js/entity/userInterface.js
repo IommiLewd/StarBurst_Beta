@@ -16,8 +16,6 @@ class UserInterface extends Phaser.Sprite {
         if(this._difficulty === undefined){
             this._difficulty = 1.5;
         }
-        
-        
          this._shipType = shipType;
         if(this._shipType === undefined){
             this._shipType = 3;

@@ -1,7 +1,7 @@
 class Preload extends Phaser.State {
     preload() {
         //Load Webfont
-        //this.load.script('webfont', '//ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js');
+        this.load.script('webfont', '//ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js');
         
         
         //TitleMenu items
