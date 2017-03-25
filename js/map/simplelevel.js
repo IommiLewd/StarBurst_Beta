@@ -5,7 +5,6 @@ class SimpleLevel extends Phaser.State {
     }
 
     _loadLevel() {
-        console.log(this.selectedShipFinal);
         console.log('simplelevel.js: -> _LoadLevel fired');
         this.game.canvas.oncontextmenu = function (e) {
             e.preventDefault();
@@ -25,7 +24,7 @@ class SimpleLevel extends Phaser.State {
     }
 
     _loadUi() {
-        this.userInterface = new UserInterface(this.game);
+        this.userInterface = new UserInterface(this.game, this._difficulty, this.shipType /* HERE !!!! */);
 
     }
 
@@ -139,16 +138,14 @@ class SimpleLevel extends Phaser.State {
         }, this);
     }
   
-    init(selectedShip) {
-        console.log('selected ship is: ' + selectedShip);
+    init(selectedShip, difficulty) {
     this.shipType = selectedShip;
-        console.log('shipType is: ' + this.shipType);
-    
+    this._difficulty = difficulty;
     }
     preload() {}
 
     create() {
-        this._difficulty = 2;
+
         this.enemyWaveMultiplier = 1;
         this.shipProperties = [
       ['Badger', 0, 200, 2.5, 160, 0, 160],

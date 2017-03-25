@@ -1,6 +1,6 @@
 class UserInterface extends Phaser.Sprite {
-    constructor(game) {
-        super(game);
+    constructor(game, difficulty, shipType) {
+        super(game, difficulty, shipType);
         game.add.existing(this);
         game.physics.arcade.enable(this);
         this.body.collideWorldBounds = true;
@@ -12,6 +12,16 @@ class UserInterface extends Phaser.Sprite {
         this.health = 100;
         this.shield = 50;
         this.regenerating = 0;
+        this._difficulty = difficulty;
+        if(this._difficulty === undefined){
+            this._difficulty = 1.5;
+        }
+        
+        
+         this._shipType = shipType;
+        if(this._shipType === undefined){
+            this._shipType = 3;
+        }
     }
 
     _waveComplete() {
@@ -84,6 +94,7 @@ class UserInterface extends Phaser.Sprite {
         this.scoreCounter.fontSize = 8;
         this.scoreCounter.addColor("#FFFFFF", 0);
 
+
         this.waveCounter = this.game.add.text(4, 618, 'Wave:  ' + this.currentWave, {
             font: "8px Press Start 2P",
             fill: '#ffffff'
@@ -108,7 +119,7 @@ class UserInterface extends Phaser.Sprite {
         this.restartButton = this.game.add.button(306, 352, 'restartButton', function () {
 
             this.game.world.removeAll();
-            this.game.state.start("SimpleLevel", true, false);
+            this.game.state.start("SimpleLevel", true, false, this._difficulty, this._shipType);
         }, this, 2, 1, 0);
         this.menuButton = this.game.add.button(336, 402, 'menuButton', function () {
 

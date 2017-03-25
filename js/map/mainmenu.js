@@ -12,6 +12,8 @@ class MainMenu extends Phaser.State {
             'Speedy and equipped with a turret',
             'Slow with a powerful turret.'
         ];
+        if(this._difficulty === undefined){
+        this._difficulty = 2;}
     }
 
 
@@ -32,9 +34,15 @@ class MainMenu extends Phaser.State {
     _loadGameOptions() {
         this.settingsMenu = this.game.add.image(460, 300, 'gameSettings');
         this.settingsMenu.anchor.setTo(0.5);
-        this.instructions = this.game.add.button(280, 172, 'easyDifficulty', function () {}, this, 1, 2, 0);
-        this.instructions = this.game.add.button(410, 172, 'normalDifficulty', function () {}, this, 1, 2, 0);
-        this.instructions = this.game.add.button(560, 172, 'hardDifficulty', function () {}, this, 1, 2, 0);
+        this.instructions = this.game.add.button(280, 172, 'easyDifficulty', function () {
+            this._difficulty = 2;
+        }, this, 1, 2, 0);
+        this.instructions = this.game.add.button(410, 172, 'normalDifficulty', function () {
+            this._difficulty = 1.5;
+        }, this, 1, 2, 0);
+        this.instructions = this.game.add.button(560, 172, 'hardDifficulty', function () {
+            this._difficulty = 1;
+        }, this, 1, 2, 0);
         this.shipPlacementX = 222;
         this.placementX = 210;
         for (var i = 0; i <= 4; i++) {
@@ -69,7 +77,7 @@ class MainMenu extends Phaser.State {
 
         this.beginButton = this.game.add.button(340, 540, 'begin', function () {
             //this.game.state.states['SimpleLevel'].finalShipSelection = 2;
-            this.game.state.start('SimpleLevel', true, false, this.selectedShip);
+            this.game.state.start('SimpleLevel', true, false, this.selectedShip, this._difficulty);
         }, this, 1, 2, 0);
 
 
@@ -78,7 +86,6 @@ class MainMenu extends Phaser.State {
 
     _shipHandler(input) {
         this.shipDescription.visible = true;
-        console.log(input);
         this.selectedShip = input;
         this.shipName.setText(this.nameArray[input]);
         this.shipDescription.setText(this.descriptionArray[input]);
@@ -101,18 +108,27 @@ class MainMenu extends Phaser.State {
             boundsAlignW: "right"
         });
         this.copyright.anchor.setTo(0.5, 0.0);
-        this.versionText = this.game.add.text(460, 410, 'Beta 0.6', {
+        this.versionText = this.game.add.text(460, 510, '(Mouse strongly recommended)', {
             font: "8px Press Start 2P",
             fill: '#ffffff',
             boundsAlignH: "center"
         });
         this.versionText.anchor.setTo(0.5);
-        this.instructions = this.game.add.button(460, 374, 'instructions', function () {}, this, 1, 2, 0);
+        this.instructions = this.game.add.button(460, 374, 'instructions', function () {
+            this._loadInstructions();
+        }, this, 1, 2, 0);
         this.instructions.anchor.setTo(0.5);
+    }
+
+    _loadInstructions() {
+        this.instructions = this.game.add.image(460, 330, 'gameInstructions');
+        this.instructions.anchor.setTo(0.5);
+        this.instructions.inputEnabled = true;
+        this.instructions.events.onInputDown.add(function () {
+            this.instructions.destroy();
 
 
-
-
+        }, this);
     }
 
     _addTitleText() {

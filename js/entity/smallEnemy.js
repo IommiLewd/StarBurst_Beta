@@ -15,13 +15,13 @@ class smallEnemy extends Phaser.Sprite {
         this.animations.add('enemyAnim', [type]);
         this.animations.play('enemyAnim');
         this.difficulty = difficulty;
-
         if (this.enemyShipProperties[type][5] === 1) {
             this.turretEnabled = true;
             this._addenemyGun();
         } else {
             this.turretEnabled = false;
         }
+
         this._addEmitter();
         this.SPEED = this.enemyShipProperties[type][2] / this.difficulty; // missile speed pixels/second
         this.TURN_RATE = this.enemyShipProperties[type][3] / this.difficulty; // turn rate in degrees/frame
@@ -34,9 +34,9 @@ class smallEnemy extends Phaser.Sprite {
         this.fireRate = this.enemyShipProperties[type][6] * this.difficulty;
         this._nextFire = 0;
         this.alive = false;
-        this.game.time.events.add(Phaser.Timer.SECOND * 0.5, function () {
-            if (this.health > 0) {
-                this.alive = true;
+        this.game.time.events.add(Phaser.Timer.SECOND * 0.8, function () {
+            if(this.health > 0){
+            this.alive = true;
             }
         }, this);
         this.health = this.enemyShipProperties[type][4] / this.difficulty;
@@ -130,6 +130,7 @@ class smallEnemy extends Phaser.Sprite {
             particle.body.allowGravity = false;
         }, this);
         this.deathEmitter.setScale(0.3, 2.5, 0.3, 2.5, 400);
+        //this.deathEmitter.start(false, 800, 100);
         this.deathEmitter.start(false, 400, 200);
         this.deathEmitter.on = true;
     }
@@ -142,9 +143,16 @@ class smallEnemy extends Phaser.Sprite {
             this._targetReticule.rotation = storedAngle;
             var storedShipAngle = Math.abs(this.rotation);
             var storedPointerAngle = Math.abs(this._targetReticule.rotation);
-            if (this.game.time.now > this._nextFire) {
+            if (storedPointerAngle < storedShipAngle + 0.2 && storedPointerAngle > storedShipAngle - 0.2 && this.game.time.now > this._nextFire && this.turretEnabled === false) {
+                this._fireWeapon();
+            } else if (this.game.time.now > this._nextFire && this.turretEnabled) {
                 this._fireWeapon();
             }
+
+            //
+            //                        if (storedPointerAngle < storedShipAngle + 0.2 && storedPointerAngle > storedShipAngle - 0.2 && this.game.time.now > this._nextFire) {
+            //                            this._fireWeapon();
+            //                        }
 
             this.targetDistance = this.game.math.distance(this.x, this.y, this.playerX, this.playerY);
             var targetAngle = this.game.math.angleBetween(

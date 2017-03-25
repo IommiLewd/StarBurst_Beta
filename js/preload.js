@@ -12,6 +12,7 @@ class Preload extends Phaser.State {
         this.load.spritesheet('startNewGame', 'img/titleMenu/newGameImage.png', 130, 18, 2);
         this.load.spritesheet('instructions', 'img/titleMenu/instructionsImage.png', 194, 18, 2);
         this.load.spritesheet('begin', 'img/titleMenu/fight.png', 238, 40, 2);
+        this.load.image('gameInstructions', 'img/titleMenu/gameInstructions.png');
         
         this.load.spritesheet('easyDifficulty', 'img/titleMenu/easyDifficulty.png', 66, 18, 2);
         this.load.spritesheet('normalDifficulty', 'img/titleMenu/normalDifficulty.png', 98, 18, 2);
